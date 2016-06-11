@@ -184,7 +184,7 @@ write_files:
   - path: /etc/exports
     permissions: 0644
     content: |
-      /data/ 172.16.30.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
+      /data/ 172.16.20.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
   - path: /etc/kubernetes/node-kubeconfig.yaml
     permissions: 0644
     content: |

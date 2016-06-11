@@ -214,7 +214,7 @@ write_files:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
-          - --etcd-servers=http://172.16.30.15:2379,http://172.16.30.16:2379,http://172.16.30.17:2379
+          - --etcd-servers=http://172.16.20.12:2379,http://172.16.20.13:2379,http://172.16.20.14:2379
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/16
           - --secure-port=443
@@ -260,7 +260,7 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.30.15:2379,http://172.16.30.16:2379,http://172.16.30.17:2379
+          - --etcd-servers=http://172.16.20.12:2379,http://172.16.20.13:2379,http://172.16.20.14:2379
           - --key=controller
           - --whoami=172.16.20.10
           - --source-file=/src/manifests/kube-controller-manager.yaml
@@ -276,7 +276,7 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.30.15:2379,http://172.16.30.16:2379,http://172.16.30.17:2379
+          - --etcd-servers=http://172.16.20.12:2379,http://172.16.20.13:2379,http://172.16.20.14:2379
           - --key=scheduler
           - --whoami=172.16.20.10
           - --source-file=/src/manifests/kube-scheduler.yaml
