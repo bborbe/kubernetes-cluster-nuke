@@ -8,7 +8,7 @@ Connect system with kvm installed.
 cd /var/lib/libvirt/images
 git clone https://github.com/bborbe/kubernetes-cluster-hm.git kubernetes
 cd kubernetes
-k8s_generate_configs -loglevel=debug -config config.json
+k8s_generate_configs -loglevel=debug -config cluster-config.json
 cd scripts
 ./ssl-generate-keys.sh
 ./ssl-copy-keys.sh
@@ -23,7 +23,7 @@ On admin machine.
 ```
 git clone https://github.com/bborbe/kubernetes-cluster-hm.git kubernetes
 cd kubernetes
-k8s_generate_configs -loglevel=debug -config config.json
+k8s_generate_configs -loglevel=debug -config cluster-config.json
 cd scripts
 ./admin-kubectl-configure.sh
 ./admin-copy-keys.sh
