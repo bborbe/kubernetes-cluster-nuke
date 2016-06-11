@@ -149,7 +149,7 @@ coreos:
             --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml \
             --tls-cert-file=/etc/kubernetes/ssl/node.pem \
             --tls-private-key-file=/etc/kubernetes/ssl/node-key.pem \
-            --node-labels=worker=true \
+            --node-labels=storage=true,worker=true \
             --v=2
         [Install]
         WantedBy=multi-user.target
