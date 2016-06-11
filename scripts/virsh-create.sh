@@ -24,7 +24,7 @@ virt-install \
 --disk /dev/system/kubernetes-master-docker,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0a,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0a,model=virtio
 
 echo "create virsh kubernetes-storage mac=00:16:3e:2f:20:0b ..."
 virt-install \
@@ -45,7 +45,7 @@ virt-install \
 --disk /dev/system/kubernetes-storage-data,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0b,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0b,model=virtio
 
 echo "create virsh kubernetes-etcd0 mac=00:16:3e:2f:20:0c ..."
 virt-install \
@@ -65,7 +65,7 @@ virt-install \
 --disk /dev/system/kubernetes-etcd0-docker,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd0/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0c,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0c,model=virtio
 
 echo "create virsh kubernetes-etcd1 mac=00:16:3e:2f:20:0d ..."
 virt-install \
@@ -85,7 +85,7 @@ virt-install \
 --disk /dev/system/kubernetes-etcd1-docker,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd1/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0d,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0d,model=virtio
 
 echo "create virsh kubernetes-etcd2 mac=00:16:3e:2f:20:0e ..."
 virt-install \
@@ -105,7 +105,7 @@ virt-install \
 --disk /dev/system/kubernetes-etcd2-docker,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd2/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0e,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0e,model=virtio
 
 echo "create virsh kubernetes-worker0 mac=00:16:3e:2f:20:0f ..."
 virt-install \
@@ -126,7 +126,7 @@ virt-install \
 --disk /dev/system/kubernetes-worker0-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:0f,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:0f,model=virtio
 
 echo "create virsh kubernetes-worker1 mac=00:16:3e:2f:20:10 ..."
 virt-install \
@@ -147,7 +147,7 @@ virt-install \
 --disk /dev/system/kubernetes-worker1-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:10,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:10,model=virtio
 
 echo "create virsh kubernetes-worker2 mac=00:16:3e:2f:20:11 ..."
 virt-install \
@@ -168,5 +168,5 @@ virt-install \
 --disk /dev/system/kubernetes-worker2-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=br0,mac=00:16:3e:2f:20:11,model=virtio
+--network bridge=privatebr0,mac=00:16:3e:2f:20:11,model=virtio
 

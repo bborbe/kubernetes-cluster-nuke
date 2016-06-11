@@ -7,7 +7,7 @@
 	"vm-prefix": "",
 	"disk-prefix": "",
 	"host": "fire.hm.benjamin-borbe.de",
-	"bridge": "br0",
+	"bridge": "privatebr0",
 	"nodes": [
 		{
 			"name": "kubernetes-master",
