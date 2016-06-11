@@ -10,19 +10,6 @@
 	"bridge": "br0",
 	"nodes": [
 		{
-			"name": "kubernetes-etcd",
-			"etcd": true,
-			"worker": false,
-			"master": false,
-			"storage": false,
-			"storagesize": "",
-			"nfsd": false,
-			"nfssize": "",
-			"cores": 4,
-			"memory": 750,
-			"number": 3
-		},
-		{
 			"name": "kubernetes-master",
 			"etcd": false,
 			"worker": false,
@@ -47,6 +34,19 @@
 			"cores": 4,
 			"memory": 750,
 			"number": 1
+		},
+		{
+			"name": "kubernetes-etcd",
+			"etcd": true,
+			"worker": false,
+			"master": false,
+			"storage": false,
+			"storagesize": "",
+			"nfsd": false,
+			"nfssize": "",
+			"cores": 4,
+			"memory": 750,
+			"number": 3
 		},
 		{
 			"name": "kubernetes-worker",
