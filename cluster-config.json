@@ -17,6 +17,7 @@
 			"master": false,
 			"storage": false,
 			"cores": 4,
+			"memory": 750,
 			"number": 3
 		},
 		{
@@ -27,6 +28,7 @@
 			"master": true,
 			"storage": false,
 			"cores": 4,
+			"memory": 1000,
 			"number": 1
 		},
 		{
@@ -37,6 +39,7 @@
 			"master": false,
 			"storage": false,
 			"cores": 4,
+			"memory": 750,
 			"number": 1
 		},
 		{
@@ -47,6 +50,7 @@
 			"master": false,
 			"storage": true,
 			"cores": 4,
+			"memory": 3000,
 			"number": 3
 		}
 	]
