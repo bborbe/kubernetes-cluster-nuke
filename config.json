@@ -1,0 +1,53 @@
+{
+	"region": "hm",
+	"public-ip": "172.16.60.6",
+	"network": "172.16.20",
+	"macprefix": "00:16:3e:2f:20:",
+	"lvm-vg": "system",
+	"vm-prefix": "",
+	"disk-prefix": "",
+	"host": "fire.hm.benjamin-borbe.de",
+	"bridge": "br0",
+	"nodes": [
+		{
+			"name": "kubernetes-etcd",
+			"etcd": true,
+			"worker": false,
+			"nfsd": false,
+			"master": false,
+			"storage": false,
+			"cores": 4,
+			"number": 3
+		},
+		{
+			"name": "kubernetes-master",
+			"etcd": false,
+			"worker": false,
+			"nfsd": false,
+			"master": true,
+			"storage": false,
+			"cores": 4,
+			"number": 1
+		},
+		{
+			"name": "kubernetes-storage",
+			"etcd": false,
+			"worker": false,
+			"nfsd": true,
+			"master": false,
+			"storage": false,
+			"cores": 4,
+			"number": 1
+		},
+		{
+			"name": "kubernetes-worker",
+			"etcd": false,
+			"worker": true,
+			"nfsd": false,
+			"master": false,
+			"storage": true,
+			"cores": 4,
+			"number": 3
+		}
+	]
+}
