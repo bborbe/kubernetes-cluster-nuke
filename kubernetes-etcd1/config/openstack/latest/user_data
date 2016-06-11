@@ -9,11 +9,11 @@ coreos:
     reboot-strategy: etcd-lock
   etcd2:
     name: "kubernetes-etcd1"
-    initial-cluster: "kubernetes-etcd0=http://172.16.20.11:2380,kubernetes-etcd1=http://172.16.20.12:2380,kubernetes-etcd2=http://172.16.20.13:2380"
+    initial-cluster: "kubernetes-etcd0=http://172.16.20.12:2380,kubernetes-etcd1=http://172.16.20.13:2380,kubernetes-etcd2=http://172.16.20.14:2380"
     initial-cluster-token: "cluster-hm"
     initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.20.12:2380"
-    advertise-client-urls: "http://172.16.20.12:2379"
+    initial-advertise-peer-urls: "http://172.16.20.13:2380"
+    advertise-client-urls: "http://172.16.20.13:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
@@ -36,9 +36,9 @@ coreos:
     - name: 10-ens3.network
       content: |
         [Match]
-        MACAddress=00:16:3e:2f:20:0c
+        MACAddress=00:16:3e:2f:20:0d
         [Network]
-        Address=172.16.20.12/24
+        Address=172.16.20.13/24
         Gateway=172.16.20.1
         DNS=172.16.20.1
     - name: format-ephemeral.service
@@ -133,12 +133,12 @@ coreos:
           gcr.io/google_containers/hyperkube-amd64:v1.2.4 \
           /hyperkube kubelet \
             --containerized \
-            --api_servers=https://172.16.20.14 \
+            --api_servers=https://172.16.20.10 \
             --register-node=true \
             --register-schedulable=false \
             --allow-privileged=true \
             --config=/etc/kubernetes/manifests \
-            --hostname-override=172.16.20.12 \
+            --hostname-override=172.16.20.13 \
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
             --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml \
@@ -152,13 +152,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=172.16.20.12
-      COREOS_PRIVATE_IPV4=172.16.20.12
+      COREOS_PUBLIC_IPV4=172.16.20.13
+      COREOS_PRIVATE_IPV4=172.16.20.13
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=172.16.20.12
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.11:2379,http://172.16.20.12:2379,http://172.16.20.13:2379
+      FLANNELD_IFACE=172.16.20.13
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.12:2379,http://172.16.20.13:2379,http://172.16.20.14:2379
   - path: /root/.toolboxrc
     owner: core
     content: |
@@ -207,7 +207,7 @@ write_files:
           command:
           - /hyperkube
           - proxy
-          - --master=https://172.16.20.14
+          - --master=https://172.16.20.10
           - --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml
           - --proxy-mode=iptables
           securityContext:

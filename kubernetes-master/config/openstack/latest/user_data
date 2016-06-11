@@ -9,7 +9,7 @@ coreos:
     reboot-strategy: etcd-lock
   etcd2:
     name: "kubernetes-master"
-    initial-cluster: "kubernetes-etcd0=http://172.16.20.11:2380,kubernetes-etcd1=http://172.16.20.12:2380,kubernetes-etcd2=http://172.16.20.13:2380"
+    initial-cluster: "kubernetes-etcd0=http://172.16.20.12:2380,kubernetes-etcd1=http://172.16.20.13:2380,kubernetes-etcd2=http://172.16.20.14:2380"
     initial-cluster-token: "cluster-hm"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     proxy: "on"
@@ -33,9 +33,9 @@ coreos:
     - name: 10-ens3.network
       content: |
         [Match]
-        MACAddress=00:16:3e:2f:20:0e
+        MACAddress=00:16:3e:2f:20:0a
         [Network]
-        Address=172.16.20.14/24
+        Address=172.16.20.10/24
         Gateway=172.16.20.1
         DNS=172.16.20.1
     - name: format-ephemeral.service
@@ -141,7 +141,7 @@ coreos:
             --register-schedulable=false \
             --allow-privileged=true \
             --config=/etc/kubernetes/manifests \
-            --hostname-override=172.16.20.14 \
+            --hostname-override=172.16.20.10 \
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
             --node-labels=role=master \
@@ -178,13 +178,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=172.16.20.14
-      COREOS_PRIVATE_IPV4=172.16.20.14
+      COREOS_PUBLIC_IPV4=172.16.20.10
+      COREOS_PRIVATE_IPV4=172.16.20.10
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=172.16.20.14
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.11:2379,http://172.16.20.12:2379,http://172.16.20.13:2379
+      FLANNELD_IFACE=172.16.20.10
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.12:2379,http://172.16.20.13:2379,http://172.16.20.14:2379
   - path: /root/.toolboxrc
     owner: core
     content: |
@@ -218,7 +218,7 @@ write_files:
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/16
           - --secure-port=443
-          - --advertise-address=172.16.20.14
+          - --advertise-address=172.16.20.10
           - --admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
           - --tls-cert-file=/etc/kubernetes/ssl/node.pem
           - --tls-private-key-file=/etc/kubernetes/ssl/node-key.pem
@@ -262,7 +262,7 @@ write_files:
           - /podmaster
           - --etcd-servers=http://172.16.30.15:2379,http://172.16.30.16:2379,http://172.16.30.17:2379
           - --key=controller
-          - --whoami=172.16.20.14
+          - --whoami=172.16.20.10
           - --source-file=/src/manifests/kube-controller-manager.yaml
           - --dest-file=/dst/manifests/kube-controller-manager.yaml
           terminationMessagePath: /dev/termination-log
@@ -278,7 +278,7 @@ write_files:
           - /podmaster
           - --etcd-servers=http://172.16.30.15:2379,http://172.16.30.16:2379,http://172.16.30.17:2379
           - --key=scheduler
-          - --whoami=172.16.20.14
+          - --whoami=172.16.20.10
           - --source-file=/src/manifests/kube-scheduler.yaml
           - --dest-file=/dst/manifests/kube-scheduler.yaml
           volumeMounts:

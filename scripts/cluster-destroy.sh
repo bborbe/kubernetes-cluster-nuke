@@ -11,6 +11,12 @@ ${SCRIPT_ROOT}/virsh-undefine.sh
 
 echo "remove lvm volumes ..."
 
+lvremove /dev/system/kubernetes-master
+lvremove /dev/system/kubernetes-master-docker
+
+lvremove /dev/system/kubernetes-storage
+lvremove /dev/system/kubernetes-storage-docker
+
 lvremove /dev/system/kubernetes-etcd0
 lvremove /dev/system/kubernetes-etcd0-docker
 
@@ -19,12 +25,6 @@ lvremove /dev/system/kubernetes-etcd1-docker
 
 lvremove /dev/system/kubernetes-etcd2
 lvremove /dev/system/kubernetes-etcd2-docker
-
-lvremove /dev/system/kubernetes-master
-lvremove /dev/system/kubernetes-master-docker
-
-lvremove /dev/system/kubernetes-storage
-lvremove /dev/system/kubernetes-storage-docker
 
 lvremove /dev/system/kubernetes-worker0
 lvremove /dev/system/kubernetes-worker0-docker

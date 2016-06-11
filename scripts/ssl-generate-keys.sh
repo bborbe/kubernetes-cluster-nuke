@@ -21,42 +21,42 @@ openssl x509 -req -in ${SCRIPT_ROOT}/admin.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey 
 
 # kubernetes-master
 openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-master-key.pem 2048
-KUBERNETES_SVC=10.103.0.1 FIREWALL_IP=172.16.60.6 MASTER_IP=172.16.20.14 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-master-key.pem -out ${SCRIPT_ROOT}/kubernetes-master.csr -subj "/CN=kube-apiserver" -config ${SCRIPT_ROOT}/master-openssl.cnf
-KUBERNETES_SVC=10.103.0.1 FIREWALL_IP=172.16.60.6 MASTER_IP=172.16.20.14 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-master.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-master.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/master-openssl.cnf
+KUBERNETES_SVC=10.103.0.1 FIREWALL_IP=172.16.60.6 MASTER_IP=172.16.20.10 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-master-key.pem -out ${SCRIPT_ROOT}/kubernetes-master.csr -subj "/CN=kube-apiserver" -config ${SCRIPT_ROOT}/master-openssl.cnf
+KUBERNETES_SVC=10.103.0.1 FIREWALL_IP=172.16.60.6 MASTER_IP=172.16.20.10 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-master.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-master.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/master-openssl.cnf
 
-
-# kubernetes-etcd0
-openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd0-key.pem 2048
-NODE_IP=172.16.20.11 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd0-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd0.csr -subj "/CN=kubernetes-etcd0" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.11 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd0.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd0.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
-
-# kubernetes-etcd1
-openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd1-key.pem 2048
-NODE_IP=172.16.20.12 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd1-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd1.csr -subj "/CN=kubernetes-etcd1" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.12 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd1.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd1.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
-
-# kubernetes-etcd2
-openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd2-key.pem 2048
-NODE_IP=172.16.20.13 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd2-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd2.csr -subj "/CN=kubernetes-etcd2" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.13 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd2.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd2.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
 
 # kubernetes-storage
 openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-storage-key.pem 2048
-NODE_IP=172.16.20.15 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-storage-key.pem -out ${SCRIPT_ROOT}/kubernetes-storage.csr -subj "/CN=kubernetes-storage" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.15 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-storage.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-storage.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.11 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-storage-key.pem -out ${SCRIPT_ROOT}/kubernetes-storage.csr -subj "/CN=kubernetes-storage" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.11 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-storage.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-storage.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+
+# kubernetes-etcd0
+openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd0-key.pem 2048
+NODE_IP=172.16.20.12 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd0-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd0.csr -subj "/CN=kubernetes-etcd0" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.12 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd0.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd0.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+
+# kubernetes-etcd1
+openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd1-key.pem 2048
+NODE_IP=172.16.20.13 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd1-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd1.csr -subj "/CN=kubernetes-etcd1" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.13 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd1.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd1.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+
+# kubernetes-etcd2
+openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-etcd2-key.pem 2048
+NODE_IP=172.16.20.14 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-etcd2-key.pem -out ${SCRIPT_ROOT}/kubernetes-etcd2.csr -subj "/CN=kubernetes-etcd2" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.14 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-etcd2.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-etcd2.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
 
 # kubernetes-worker0
 openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-worker0-key.pem 2048
-NODE_IP=172.16.20.16 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker0-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker0.csr -subj "/CN=kubernetes-worker0" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.16 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker0.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker0.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.15 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker0-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker0.csr -subj "/CN=kubernetes-worker0" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.15 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker0.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker0.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
 
 # kubernetes-worker1
 openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-worker1-key.pem 2048
-NODE_IP=172.16.20.17 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker1-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker1.csr -subj "/CN=kubernetes-worker1" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.17 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker1.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker1.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.16 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker1-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker1.csr -subj "/CN=kubernetes-worker1" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.16 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker1.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker1.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
 
 # kubernetes-worker2
 openssl genrsa -out ${SCRIPT_ROOT}/kubernetes-worker2-key.pem 2048
-NODE_IP=172.16.20.18 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker2-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker2.csr -subj "/CN=kubernetes-worker2" -config ${SCRIPT_ROOT}/node-openssl.cnf
-NODE_IP=172.16.20.18 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker2.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker2.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.17 openssl req -new -key ${SCRIPT_ROOT}/kubernetes-worker2-key.pem -out ${SCRIPT_ROOT}/kubernetes-worker2.csr -subj "/CN=kubernetes-worker2" -config ${SCRIPT_ROOT}/node-openssl.cnf
+NODE_IP=172.16.20.17 openssl x509 -req -in ${SCRIPT_ROOT}/kubernetes-worker2.csr -CA ${SCRIPT_ROOT}/ca.pem -CAkey ${SCRIPT_ROOT}/ca-key.pem -CAcreateserial -out ${SCRIPT_ROOT}/kubernetes-worker2.pem -days 365 -extensions v3_req -extfile ${SCRIPT_ROOT}/node-openssl.cnf
 
