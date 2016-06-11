@@ -144,7 +144,7 @@ coreos:
             --hostname-override=172.16.20.10 \
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
-            --node-labels=role=master \
+            --node-labels=master=true \
             --v=2
         [Install]
         WantedBy=multi-user.target
