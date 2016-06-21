@@ -13,7 +13,7 @@ virt-install \
 --serial pty \
 --accelerate \
 --ram 1000 \
---vcpus 4 \
+--vcpus 2 \
 --cpu=host \
 --os-type linux \
 --os-variant virtio26 \
@@ -33,7 +33,7 @@ virt-install \
 --serial pty \
 --accelerate \
 --ram 750 \
---vcpus 4 \
+--vcpus 2 \
 --cpu=host \
 --os-type linux \
 --os-variant virtio26 \
@@ -54,7 +54,7 @@ virt-install \
 --serial pty \
 --accelerate \
 --ram 750 \
---vcpus 4 \
+--vcpus 2 \
 --cpu=host \
 --os-type linux \
 --os-variant virtio26 \
@@ -74,7 +74,7 @@ virt-install \
 --serial pty \
 --accelerate \
 --ram 750 \
---vcpus 4 \
+--vcpus 2 \
 --cpu=host \
 --os-type linux \
 --os-variant virtio26 \
@@ -94,7 +94,7 @@ virt-install \
 --serial pty \
 --accelerate \
 --ram 750 \
---vcpus 4 \
+--vcpus 2 \
 --cpu=host \
 --os-type linux \
 --os-variant virtio26 \
