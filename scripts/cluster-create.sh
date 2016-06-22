@@ -19,27 +19,35 @@ echo "create lvm volumes ..."
 
 lvcreate -L 10G -n kubernetes-master system
 lvcreate -L 10G -n kubernetes-master-docker system
+lvcreate -L 10G -n kubernetes-master-kubelet system
 
 lvcreate -L 10G -n kubernetes-storage system
 lvcreate -L 10G -n kubernetes-storage-docker system
+lvcreate -L 10G -n kubernetes-storage-kubelet system
 
 lvcreate -L 10G -n kubernetes-etcd0 system
 lvcreate -L 10G -n kubernetes-etcd0-docker system
+lvcreate -L 10G -n kubernetes-etcd0-kubelet system
 
 lvcreate -L 10G -n kubernetes-etcd1 system
 lvcreate -L 10G -n kubernetes-etcd1-docker system
+lvcreate -L 10G -n kubernetes-etcd1-kubelet system
 
 lvcreate -L 10G -n kubernetes-etcd2 system
 lvcreate -L 10G -n kubernetes-etcd2-docker system
+lvcreate -L 10G -n kubernetes-etcd2-kubelet system
 
 lvcreate -L 10G -n kubernetes-worker0 system
 lvcreate -L 10G -n kubernetes-worker0-docker system
+lvcreate -L 10G -n kubernetes-worker0-kubelet system
 
 lvcreate -L 10G -n kubernetes-worker1 system
 lvcreate -L 10G -n kubernetes-worker1-docker system
+lvcreate -L 10G -n kubernetes-worker1-kubelet system
 
 lvcreate -L 10G -n kubernetes-worker2 system
 lvcreate -L 10G -n kubernetes-worker2-docker system
+lvcreate -L 10G -n kubernetes-worker2-kubelet system
 
 
 echo "writing images ..."

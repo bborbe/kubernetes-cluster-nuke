@@ -61,13 +61,36 @@ coreos:
         What=/dev/vdb
         Where=/var/lib/docker
         Type=ext4
+    - name: format-kubelet.service
+      command: start
+      content: |
+        [Unit]
+        Description=Formats the kubelet drive
+        After=dev-vdc.device
+        Requires=dev-vdc.device
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/sbin/wipefs -f /dev/vdc
+        ExecStart=/usr/sbin/mkfs.ext4 -i 4096 -F /dev/vdc
+    - name: var-lib-kubelet.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount /var/lib/kubelet
+        Requires=format-kubelet.service
+        After=format-kubelet.service
+        [Mount]
+        What=/dev/vdc
+        Where=/var/lib/kubelet
+        Type=ext4
     - name: data.mount
       command: start
       content: |
         [Unit]
         Description=Mount /data
         [Mount]
-        What=/dev/vdc
+        What=/dev/vdd
         Where=/data
         Type=ext4
     - name: rpc-statd.service
