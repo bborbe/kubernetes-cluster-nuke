@@ -84,15 +84,6 @@ coreos:
         What=/dev/vdc
         Where=/var/lib/kubelet
         Type=ext4
-    - name: storage.mount
-      command: start
-      content: |
-        [Unit]
-        Description=Mount Storage to /storage
-        [Mount]
-        What=/dev/vdd
-        Where=/storage
-        Type=xfs
     - name: rpc-statd.service
       command: start
       enable: true
@@ -172,7 +163,7 @@ coreos:
             --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml \
             --tls-cert-file=/etc/kubernetes/ssl/node.pem \
             --tls-private-key-file=/etc/kubernetes/ssl/node-key.pem \
-            --node-labels=storage=true,worker=true \
+            --node-labels=worker=true \
             --v=2
         [Install]
         WantedBy=multi-user.target

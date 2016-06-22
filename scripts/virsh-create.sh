@@ -129,7 +129,6 @@ virt-install \
 --disk /dev/system/kubernetes-worker0,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker0-docker,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker0-kubelet,bus=virtio,cache=none,io=native \
---disk /dev/system/kubernetes-worker0-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/ssl/,kubernetes-ssl,type=mount,mode=squash \
 --network bridge=privatebr0,mac=00:16:3e:2f:20:0f,model=virtio
@@ -151,7 +150,6 @@ virt-install \
 --disk /dev/system/kubernetes-worker1,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker1-docker,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker1-kubelet,bus=virtio,cache=none,io=native \
---disk /dev/system/kubernetes-worker1-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/ssl/,kubernetes-ssl,type=mount,mode=squash \
 --network bridge=privatebr0,mac=00:16:3e:2f:20:10,model=virtio
@@ -173,7 +171,6 @@ virt-install \
 --disk /dev/system/kubernetes-worker2,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker2-docker,bus=virtio,cache=none,io=native \
 --disk /dev/system/kubernetes-worker2-kubelet,bus=virtio,cache=none,io=native \
---disk /dev/system/kubernetes-worker2-storage,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/ssl/,kubernetes-ssl,type=mount,mode=squash \
 --network bridge=privatebr0,mac=00:16:3e:2f:20:11,model=virtio

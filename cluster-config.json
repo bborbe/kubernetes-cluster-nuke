@@ -11,26 +11,15 @@
 	"nodes": [
 		{
 			"name": "kubernetes-master",
-			"etcd": false,
-			"worker": false,
 			"master": true,
-			"nfsd": false,
-			"nfssize": "",
-			"storage": false,
-			"storagesize": "",
 			"cores": 2,
 			"memory": 1000,
 			"number": 1
 		},
 		{
 			"name": "kubernetes-storage",
-			"etcd": false,
-			"worker": false,
-			"master": false,
 			"nfsd": true,
 			"nfssize": "5G",
-			"storage": false,
-			"storagesize": "",
 			"cores": 2,
 			"memory": 750,
 			"number": 1
@@ -38,25 +27,13 @@
 		{
 			"name": "kubernetes-etcd",
 			"etcd": true,
-			"worker": false,
-			"master": false,
-			"storage": false,
-			"storagesize": "",
-			"nfsd": false,
-			"nfssize": "",
 			"cores": 2,
 			"memory": 750,
 			"number": 3
 		},
 		{
 			"name": "kubernetes-worker",
-			"etcd": false,
 			"worker": true,
-			"master": false,
-			"nfsd": false,
-			"nfssize": "",
-			"storage": true,
-			"storagesize": "5G",
 			"cores": 4,
 			"memory": 3000,
 			"number": 3
