@@ -157,7 +157,7 @@ coreos:
           --volume=/:/rootfs:ro \
           --volume=/sys:/sys:ro \
           --volume=/var/lib/docker/:/var/lib/docker:rw \
-          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw,shared \
+          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw,rslave \
           --volume=/var/run:/var/run:rw \
           --volume=/etc/kubernetes:/etc/kubernetes:ro \
           --net=host \
