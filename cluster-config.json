@@ -8,7 +8,7 @@
 	"vm-prefix": "",
 	"disk-prefix": "",
 	"host": "fire.hm.benjamin-borbe.de",
-	"bridge": "privatebr0",
+	"bridge": "pfsense-k8s",
 	"nodes": [
 		{
 			"name": "kubernetes-master",
