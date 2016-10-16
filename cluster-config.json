@@ -16,7 +16,10 @@
 					"master": true,
 					"cores": 2,
 					"memory": 1000,
-					"number": 1
+					"number": 1,
+					"rootsize": "10G",
+					"dockersize": "2G",
+					"kubeletsize": "1G"
 				},
 				{
 					"name": "kubernetes-storage",
@@ -24,21 +27,30 @@
 					"nfssize": "5G",
 					"cores": 2,
 					"memory": 750,
-					"number": 1
+					"number": 1,
+					"rootsize": "10G",
+					"dockersize": "2G",
+					"kubeletsize": "1G"
 				},
 				{
 					"name": "kubernetes-etcd",
 					"etcd": true,
 					"cores": 2,
 					"memory": 750,
-					"number": 3
+					"number": 3,
+					"rootsize": "10G",
+					"dockersize": "2G",
+					"kubeletsize": "1G"
 				},
 				{
 					"name": "kubernetes-worker",
 					"worker": true,
 					"cores": 4,
 					"memory": 3000,
-					"number": 3
+					"number": 3,
+					"rootsize": "10G",
+					"dockersize": "10G",
+					"kubeletsize": "5G"
 				}
 			]
 		}
