@@ -6,7 +6,7 @@ set -o pipefail
 set -o errtrace
 
 
-echo "create virsh kubernetes-master mac=00:16:3e:2f:20:0a ..."
+echo "create virsh kubernetes-master mac=00:16:ac:10:16:0a ..."
 virt-install \
 --import \
 --debug \
@@ -25,9 +25,9 @@ virt-install \
 --disk /dev/system/kubernetes-master-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0a,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0a,model=virtio
 
-echo "create virsh kubernetes-storage mac=00:16:3e:2f:20:0b ..."
+echo "create virsh kubernetes-storage mac=00:16:ac:10:16:0b ..."
 virt-install \
 --import \
 --debug \
@@ -47,9 +47,9 @@ virt-install \
 --disk /dev/system/kubernetes-storage-data,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0b,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0b,model=virtio
 
-echo "create virsh kubernetes-etcd0 mac=00:16:3e:2f:20:0c ..."
+echo "create virsh kubernetes-etcd0 mac=00:16:ac:10:16:0c ..."
 virt-install \
 --import \
 --debug \
@@ -68,9 +68,9 @@ virt-install \
 --disk /dev/system/kubernetes-etcd0-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd0/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0c,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0c,model=virtio
 
-echo "create virsh kubernetes-etcd1 mac=00:16:3e:2f:20:0d ..."
+echo "create virsh kubernetes-etcd1 mac=00:16:ac:10:16:0d ..."
 virt-install \
 --import \
 --debug \
@@ -89,9 +89,9 @@ virt-install \
 --disk /dev/system/kubernetes-etcd1-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd1/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0d,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0d,model=virtio
 
-echo "create virsh kubernetes-etcd2 mac=00:16:3e:2f:20:0e ..."
+echo "create virsh kubernetes-etcd2 mac=00:16:ac:10:16:0e ..."
 virt-install \
 --import \
 --debug \
@@ -110,9 +110,9 @@ virt-install \
 --disk /dev/system/kubernetes-etcd2-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd2/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0e,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0e,model=virtio
 
-echo "create virsh kubernetes-worker0 mac=00:16:3e:2f:20:0f ..."
+echo "create virsh kubernetes-worker0 mac=00:16:ac:10:16:0f ..."
 virt-install \
 --import \
 --debug \
@@ -131,9 +131,9 @@ virt-install \
 --disk /dev/system/kubernetes-worker0-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:0f,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:0f,model=virtio
 
-echo "create virsh kubernetes-worker1 mac=00:16:3e:2f:20:10 ..."
+echo "create virsh kubernetes-worker1 mac=00:16:ac:10:16:10 ..."
 virt-install \
 --import \
 --debug \
@@ -152,9 +152,9 @@ virt-install \
 --disk /dev/system/kubernetes-worker1-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:10,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:10,model=virtio
 
-echo "create virsh kubernetes-worker2 mac=00:16:3e:2f:20:11 ..."
+echo "create virsh kubernetes-worker2 mac=00:16:ac:10:16:11 ..."
 virt-install \
 --import \
 --debug \
@@ -173,5 +173,5 @@ virt-install \
 --disk /dev/system/kubernetes-worker2-kubelet,bus=virtio,cache=none,io=native \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=pfsense-k8s,mac=00:16:3e:2f:20:11,model=virtio
+--network bridge=fw-k8s,mac=00:16:ac:10:16:11,model=virtio
 

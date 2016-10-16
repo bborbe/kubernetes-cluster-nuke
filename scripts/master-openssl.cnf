@@ -13,4 +13,3 @@ DNS.3 = kubernetes.default.svc
 DNS.4 = kubernetes.default.svc.cluster.local
 IP.1 = $ENV::KUBERNETES_SVC
 IP.2 = $ENV::NODE_IP
-IP.3 = $ENV::APISERVER_PUBLIC_IP

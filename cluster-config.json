@@ -1,43 +1,46 @@
 {
-	"version": "v1.4.1",
+	"kuberntes-version": "v1.4.1",
 	"region": "hm",
-	"api-server-ip": "172.16.60.6",
-	"network": "172.16.20",
-	"macprefix": "00:16:3e:2f:20:",
-	"lvm-vg": "system",
-	"vm-prefix": "",
-	"disk-prefix": "",
-	"host": "fire.hm.benjamin-borbe.de",
-	"bridge": "pfsense-k8s",
-	"nodes": [
+	"update-reboot-strategy": "etcd-lock",
+	"hosts": [
 		{
-			"name": "kubernetes-master",
-			"master": true,
-			"cores": 2,
-			"memory": 1000,
-			"number": 1
-		},
-		{
-			"name": "kubernetes-storage",
-			"nfsd": true,
-			"nfssize": "5G",
-			"cores": 2,
-			"memory": 750,
-			"number": 1
-		},
-		{
-			"name": "kubernetes-etcd",
-			"etcd": true,
-			"cores": 2,
-			"memory": 750,
-			"number": 3
-		},
-		{
-			"name": "kubernetes-worker",
-			"worker": true,
-			"cores": 4,
-			"memory": 3000,
-			"number": 3
+			"name": "fire.hm.benjamin-borbe.de",
+			"lvm-vg": "system",
+			"vm-prefix": "",
+			"disk-prefix": "",
+			"kubernetes-network": "172.16.22.0/24",
+			"kubernetes-device": "fw-k8s",
+			"nodes": [
+				{
+					"name": "kubernetes-master",
+					"master": true,
+					"cores": 2,
+					"memory": 1000,
+					"number": 1
+				},
+				{
+					"name": "kubernetes-storage",
+					"nfsd": true,
+					"nfssize": "5G",
+					"cores": 2,
+					"memory": 750,
+					"number": 1
+				},
+				{
+					"name": "kubernetes-etcd",
+					"etcd": true,
+					"cores": 2,
+					"memory": 750,
+					"number": 3
+				},
+				{
+					"name": "kubernetes-worker",
+					"worker": true,
+					"cores": 4,
+					"memory": 3000,
+					"number": 3
+				}
+			]
 		}
 	]
 }
