@@ -1,5 +1,5 @@
 {
-	"kuberntes-version": "v1.4.1",
+	"kuberntes-version": "v1.4.3",
 	"region": "hm",
 	"update-reboot-strategy": "etcd-lock",
 	"hosts": [
