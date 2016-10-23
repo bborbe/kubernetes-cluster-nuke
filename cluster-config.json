@@ -1,5 +1,5 @@
 {
-	"kuberntes-version": "v1.4.3",
+	"kuberntes-version": "v1.4.4",
 	"region": "hm",
 	"update-reboot-strategy": "etcd-lock",
 	"hosts": [
@@ -8,8 +8,9 @@
 			"lvm-vg": "system",
 			"vm-prefix": "",
 			"disk-prefix": "",
-			"kubernetes-network": "172.16.22.0/24",
 			"kubernetes-device": "fw-k8s",
+			"kubernetes-network": "172.16.22.0/24",
+			"kubernetes-dns": "8.8.8.8",
 			"nodes": [
 				{
 					"name": "kubernetes-master",
