@@ -163,7 +163,7 @@ coreos:
           --net=host \
           --privileged=true \
           --pid=host \
-          gcr.io/google_containers/hyperkube-amd64:v1.4.5 \
+          gcr.io/google_containers/hyperkube-amd64:v1.4.6 \
           /hyperkube kubelet \
             --containerized \
             --api_servers=https://172.16.22.10 \
@@ -240,7 +240,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-proxy
-          image: gcr.io/google_containers/hyperkube-amd64:v1.4.5
+          image: gcr.io/google_containers/hyperkube-amd64:v1.4.6
           command:
           - /hyperkube
           - proxy
