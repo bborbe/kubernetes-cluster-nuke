@@ -2,6 +2,9 @@
 	"kuberntes-version": "v1.4.6",
 	"region": "hm",
 	"update-reboot-strategy": "etcd-lock",
+	"features": {
+		"kvm": true
+	},
 	"hosts": [
 		{
 			"name": "fire.hm.benjamin-borbe.de",
