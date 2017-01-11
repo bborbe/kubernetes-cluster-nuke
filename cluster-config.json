@@ -11,7 +11,7 @@
 			"lvm-vg": "system",
 			"vm-prefix": "",
 			"disk-prefix": "",
-			"kubernetes-device": "fw-k8s",
+			"kubernetes-device": "host-k8s",
 			"kubernetes-network": "172.16.22.0/24",
 			"kubernetes-dns": "8.8.8.8",
 			"nodes": [
