@@ -1,60 +1,33 @@
 {
 	"kuberntes-version": "v1.5.1",
-	"region": "hm",
-	"update-reboot-strategy": "etcd-lock",
+	"region": "nuke",
+	"update-reboot-strategy": "reboot",
 	"features": {
 		"kvm": true
 	},
 	"hosts": [
 		{
-			"name": "fire.hm.benjamin-borbe.de",
+			"name": "nuke.hm.benjamin-borbe.de",
 			"lvm-vg": "system",
 			"vm-prefix": "",
 			"disk-prefix": "",
 			"kubernetes-device": "host-k8s",
-			"kubernetes-network": "172.16.22.0/24",
+			"kubernetes-network": "172.16.24.0/24",
 			"kubernetes-dns": "8.8.8.8",
 			"nodes": [
 				{
-					"name": "kubernetes-master",
+					"name": "kubernetes",
+					"etcd": true,
+					"worker": true,
 					"master": true,
-					"cores": 2,
-					"memory": 1000,
-					"number": 1,
-					"rootsize": "10G",
-					"dockersize": "2G",
-					"kubeletsize": "1G"
-				},
-				{
-					"name": "kubernetes-storage",
 					"nfsd": true,
 					"nfssize": "5G",
-					"cores": 2,
-					"memory": 750,
-					"number": 1,
-					"rootsize": "10G",
-					"dockersize": "2G",
-					"kubeletsize": "1G"
-				},
-				{
-					"name": "kubernetes-etcd",
-					"etcd": true,
-					"cores": 2,
-					"memory": 750,
-					"number": 3,
-					"rootsize": "10G",
-					"dockersize": "2G",
-					"kubeletsize": "1G"
-				},
-				{
-					"name": "kubernetes-worker",
-					"worker": true,
+					"rootsize": "9.5G",
+					"dockersize": "9.5G",
+					"kubeletsize": "9.5G",
 					"cores": 4,
-					"memory": 3000,
-					"number": 3,
-					"rootsize": "10G",
-					"dockersize": "10G",
-					"kubeletsize": "5G"
+					"memory": 10000,
+					"number": 1
 				}
 			]
 		}

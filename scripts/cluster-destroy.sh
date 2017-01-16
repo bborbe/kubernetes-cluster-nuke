@@ -11,37 +11,9 @@ ${SCRIPT_ROOT}/virsh-undefine.sh
 
 echo "remove lvm volumes ..."
 
-lvremove -f /dev/system/kubernetes-master
-lvremove -f /dev/system/kubernetes-master-docker
-lvremove -f /dev/system/kubernetes-master-kubelet
-
-lvremove -f /dev/system/kubernetes-storage
-lvremove -f /dev/system/kubernetes-storage-docker
-lvremove -f /dev/system/kubernetes-storage-kubelet
-
-lvremove -f /dev/system/kubernetes-etcd0
-lvremove -f /dev/system/kubernetes-etcd0-docker
-lvremove -f /dev/system/kubernetes-etcd0-kubelet
-
-lvremove -f /dev/system/kubernetes-etcd1
-lvremove -f /dev/system/kubernetes-etcd1-docker
-lvremove -f /dev/system/kubernetes-etcd1-kubelet
-
-lvremove -f /dev/system/kubernetes-etcd2
-lvremove -f /dev/system/kubernetes-etcd2-docker
-lvremove -f /dev/system/kubernetes-etcd2-kubelet
-
-lvremove -f /dev/system/kubernetes-worker0
-lvremove -f /dev/system/kubernetes-worker0-docker
-lvremove -f /dev/system/kubernetes-worker0-kubelet
-
-lvremove -f /dev/system/kubernetes-worker1
-lvremove -f /dev/system/kubernetes-worker1-docker
-lvremove -f /dev/system/kubernetes-worker1-kubelet
-
-lvremove -f /dev/system/kubernetes-worker2
-lvremove -f /dev/system/kubernetes-worker2-docker
-lvremove -f /dev/system/kubernetes-worker2-kubelet
+lvremove -f /dev/system/kubernetes
+lvremove -f /dev/system/kubernetes-docker
+lvremove -f /dev/system/kubernetes-kubelet
 
 
 echo "done"

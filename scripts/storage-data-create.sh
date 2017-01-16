@@ -6,12 +6,12 @@ set -o pipefail
 set -o errtrace
 
 
-echo "create lvm nfsd volumes for kubernetes-storage"
-lvcreate -L 5G -n kubernetes-storage-data system
+echo "create lvm nfsd volumes for kubernetes"
+lvcreate -L 5G -n kubernetes-data system
 
-echo "format nfsd volume of kubernetes-storage"
-wipefs /dev/system/kubernetes-storage-data
-mkfs.ext4 -F /dev/system/kubernetes-storage-data
+echo "format nfsd volume of kubernetes"
+wipefs /dev/system/kubernetes-data
+mkfs.ext4 -F /dev/system/kubernetes-data
 
 
 

@@ -1,18 +1,21 @@
 #cloud-config
 ssh_authorized_keys:
  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCOw/yh7+j3ygZp2aZRdZDWUh0Dkj5N9/USdiLSoS+0CHJta+mtSxxmI/yv1nOk7xnuA6qtjpxdMlWn5obtC9xyS6T++tlTK9gaPwU7a/PObtoZdfQ7znAJDpX0IPI06/OH1tFE9kEutHQPzhCwRaIQ402BHIrUMWzzP7Ige8Oa0HwXH4sHUG5h/V/svzi9T0CKJjF8dTx4iUfKX959hT8wQnKYPULewkNBFv6pNfWIr8EzvIEQcPmmm3tP+dQPKg5QKVi6jPdRla+t5HXfhXu0W3WCDa2s0VGmJjBdMMowr5MLNYI79MKziSV1w1IWL17Z58Lop0zEHqP7Ba0Aooqd
-hostname: kubernetes-master
+hostname: kubernetes
 coreos:
   fleet:
-    metadata: "region=hm"
+    metadata: "region=nuke"
   update:
-    reboot-strategy: etcd-lock
+    reboot-strategy: reboot
   etcd2:
-    name: "kubernetes-master"
-    initial-cluster: "kubernetes-etcd0=http://172.16.22.12:2380,kubernetes-etcd1=http://172.16.22.13:2380,kubernetes-etcd2=http://172.16.22.14:2380"
-    initial-cluster-token: "cluster-hm"
+    name: "kubernetes"
+    initial-cluster: "kubernetes=http://172.16.24.10:2380"
+    initial-cluster-token: "cluster-nuke"
+    initial-cluster-state: "new"
+    initial-advertise-peer-urls: "http://172.16.24.10:2380"
+    advertise-client-urls: "http://172.16.24.10:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-    proxy: "on"
+    listen-peer-urls: "http://0.0.0.0:2380"
   units:
     - name: systemd-sysctl.service
       command: restart
@@ -35,10 +38,10 @@ coreos:
     - name: 10-ens3.network
       content: |
         [Match]
-        MACAddress=00:16:ac:10:16:0a
+        MACAddress=00:16:ac:10:18:0a
         [Network]
-        Address=172.16.22.10/24
-        Gateway=172.16.22.1
+        Address=172.16.24.10/24
+        Gateway=172.16.24.1
         DNS=8.8.8.8
     - name: format-ephemeral.service
       command: start
@@ -86,10 +89,23 @@ coreos:
         What=/dev/vdc
         Where=/var/lib/kubelet
         Type=ext4
+    - name: data.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount /data
+        [Mount]
+        What=/dev/vdd
+        Where=/data
+        Type=ext4
     - name: rpc-statd.service
       command: start
       enable: true
     - name: etcd2.service
+      command: start
+    - name: rpc-mountd.service
+      command: start
+    - name: nfsd.service
       command: start
     - name: fleet.service
       command: start
@@ -164,13 +180,12 @@ coreos:
             --containerized \
             --api_servers=http://127.0.0.1:8080 \
             --register-node=true \
-            --register-schedulable=false \
             --allow-privileged=true \
             --config=/etc/kubernetes/manifests \
-            --hostname-override=172.16.22.10 \
+            --hostname-override=172.16.24.10 \
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
-            --node-labels=master=true \
+            --node-labels=etcd=true,nfsd=true,worker=true,master=true \
             --v=2
         [Install]
         WantedBy=multi-user.target
@@ -207,13 +222,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=172.16.22.10
-      COREOS_PRIVATE_IPV4=172.16.22.10
+      COREOS_PUBLIC_IPV4=172.16.24.10
+      COREOS_PRIVATE_IPV4=172.16.24.10
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=172.16.22.10
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.22.12:2379,http://172.16.22.13:2379,http://172.16.22.14:2379
+      FLANNELD_IFACE=172.16.24.10
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.24.10:2379
   - path: /root/.toolboxrc
     owner: core
     content: |
@@ -226,6 +241,10 @@ write_files:
       TOOLBOX_DOCKER_IMAGE=bborbe/toolbox
       TOOLBOX_DOCKER_TAG=latest
       TOOLBOX_USER=root
+  - path: /etc/exports
+    permissions: 0644
+    content: |
+      /data/ 172.16.24.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
   - path: /etc/kubernetes/manifests/kube-apiserver.yaml
     permissions: 0644
     content: |
@@ -243,11 +262,11 @@ write_files:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
-          - --etcd-servers=http://172.16.22.12:2379,http://172.16.22.13:2379,http://172.16.22.14:2379
+          - --etcd-servers=http://172.16.24.10:2379
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/16
           - --secure-port=443
-          - --advertise-address=172.16.22.10
+          - --advertise-address=172.16.24.10
           - --admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,DefaultStorageClass,ResourceQuota
           - --tls-cert-file=/etc/kubernetes/ssl/node.pem
           - --tls-private-key-file=/etc/kubernetes/ssl/node-key.pem
@@ -298,9 +317,9 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.22.12:2379,http://172.16.22.13:2379,http://172.16.22.14:2379
+          - --etcd-servers=http://172.16.24.10:2379
           - --key=controller
-          - --whoami=172.16.22.10
+          - --whoami=172.16.24.10
           - --source-file=/src/manifests/kube-controller-manager.yaml
           - --dest-file=/dst/manifests/kube-controller-manager.yaml
           terminationMessagePath: /dev/termination-log
@@ -314,9 +333,9 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.22.12:2379,http://172.16.22.13:2379,http://172.16.22.14:2379
+          - --etcd-servers=http://172.16.24.10:2379
           - --key=scheduler
-          - --whoami=172.16.22.10
+          - --whoami=172.16.24.10
           - --source-file=/src/manifests/kube-scheduler.yaml
           - --dest-file=/dst/manifests/kube-scheduler.yaml
           volumeMounts:

@@ -17,56 +17,14 @@ qemu-img convert /var/lib/libvirt/images/coreos_production_qemu_image.img -O raw
 
 echo "create lvm volumes ..."
 
-lvcreate -L 10G -n kubernetes-master system
-lvcreate -L 2G -n kubernetes-master-docker system
-lvcreate -L 1G -n kubernetes-master-kubelet system
-
-lvcreate -L 10G -n kubernetes-storage system
-lvcreate -L 2G -n kubernetes-storage-docker system
-lvcreate -L 1G -n kubernetes-storage-kubelet system
-
-lvcreate -L 10G -n kubernetes-etcd0 system
-lvcreate -L 2G -n kubernetes-etcd0-docker system
-lvcreate -L 1G -n kubernetes-etcd0-kubelet system
-
-lvcreate -L 10G -n kubernetes-etcd1 system
-lvcreate -L 2G -n kubernetes-etcd1-docker system
-lvcreate -L 1G -n kubernetes-etcd1-kubelet system
-
-lvcreate -L 10G -n kubernetes-etcd2 system
-lvcreate -L 2G -n kubernetes-etcd2-docker system
-lvcreate -L 1G -n kubernetes-etcd2-kubelet system
-
-lvcreate -L 10G -n kubernetes-worker0 system
-lvcreate -L 10G -n kubernetes-worker0-docker system
-lvcreate -L 5G -n kubernetes-worker0-kubelet system
-
-lvcreate -L 10G -n kubernetes-worker1 system
-lvcreate -L 10G -n kubernetes-worker1-docker system
-lvcreate -L 5G -n kubernetes-worker1-kubelet system
-
-lvcreate -L 10G -n kubernetes-worker2 system
-lvcreate -L 10G -n kubernetes-worker2-docker system
-lvcreate -L 5G -n kubernetes-worker2-kubelet system
+lvcreate -L 9.5G -n kubernetes system
+lvcreate -L 9.5G -n kubernetes-docker system
+lvcreate -L 9.5G -n kubernetes-kubelet system
 
 
 echo "writing images ..."
 
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-master
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-storage
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-etcd0
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-etcd1
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-etcd2
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker0
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker1
-
-dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker2
+dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/system/kubernetes
 
 
 echo "cleanup"

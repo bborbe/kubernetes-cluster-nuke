@@ -6,8 +6,8 @@ set -o pipefail
 set -o errtrace
 
 
-echo "remove lvm data volumes for worker kubernetes-storage"
-lvremove /dev/system/kubernetes-storage-data
+echo "remove lvm data volumes for worker kubernetes"
+lvremove /dev/system/kubernetes-data
 
 
 
