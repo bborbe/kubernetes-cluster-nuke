@@ -175,7 +175,7 @@ coreos:
           --net=host \
           --privileged=true \
           --pid=host \
-          gcr.io/google_containers/hyperkube-amd64:v1.5.2 \
+          gcr.io/google_containers/hyperkube-amd64:v1.5.3 \
           /hyperkube kubelet \
             --containerized \
             --api_servers=http://127.0.0.1:8080 \
@@ -186,7 +186,7 @@ coreos:
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
             --node-labels=etcd=true,nfsd=true,worker=true,master=true \
-            --v=2
+            --v=0
         [Install]
         WantedBy=multi-user.target
     - name: kube-system-namespace.service
@@ -257,7 +257,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-apiserver
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.2
+          image: gcr.io/google_containers/hyperkube-amd64:v1.5.3
           command:
           - /hyperkube
           - apiserver
@@ -363,7 +363,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-proxy
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.2
+          image: gcr.io/google_containers/hyperkube-amd64:v1.5.3
           command:
           - /hyperkube
           - proxy
@@ -391,7 +391,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-scheduler
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.2
+          image: gcr.io/google_containers/hyperkube-amd64:v1.5.3
           command:
           - /hyperkube
           - scheduler
@@ -415,7 +415,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-controller-manager
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.2
+          image: gcr.io/google_containers/hyperkube-amd64:v1.5.3
           command:
           - /hyperkube
           - controller-manager
