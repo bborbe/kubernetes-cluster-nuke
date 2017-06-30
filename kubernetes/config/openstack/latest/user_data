@@ -177,16 +177,17 @@ coreos:
           --net=host \
           --privileged=true \
           --pid=host \
-          gcr.io/google_containers/hyperkube-amd64:v1.5.7 \
+          gcr.io/google_containers/hyperkube-amd64:v1.6.6 \
           /hyperkube kubelet \
             --containerized \
-            --api_servers=http://127.0.0.1:8080 \
             --register-node=true \
             --allow-privileged=true \
-            --config=/etc/kubernetes/manifests \
+            --pod-manifest-path=/etc/kubernetes/manifests \
             --hostname-override=172.16.24.10 \
             --cluster-dns=10.103.0.10 \
             --cluster-domain=cluster.local \
+            --require-kubeconfig=true \
+            --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml \
             --node-labels=etcd=true,nfsd=true,worker=true,master=true \
             --v=0
         [Install]
@@ -259,12 +260,13 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-apiserver
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.6.6
           command:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
           - --etcd-servers=http://172.16.24.10:2379
+          - --storage-backend=etcd2
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/16
           - --secure-port=443
@@ -353,6 +355,27 @@ write_files:
         - hostPath:
             path: /etc/kubernetes/manifests
           name: manifest-dst
+  - path: /etc/kubernetes/node-kubeconfig.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+          server: http://127.0.0.1:8080
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/node.pem
+          client-key: /etc/kubernetes/ssl/node-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
   - path: /etc/kubernetes/manifests/kube-proxy.yaml
     permissions: 0644
     content: |
@@ -365,7 +388,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-proxy
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.6.6
           command:
           - /hyperkube
           - proxy
@@ -393,7 +416,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-scheduler
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.6.6
           command:
           - /hyperkube
           - scheduler
@@ -417,7 +440,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-controller-manager
-          image: gcr.io/google_containers/hyperkube-amd64:v1.5.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.6.6
           command:
           - /hyperkube
           - controller-manager
@@ -445,4 +468,3 @@ write_files:
         - name: ssl-certs-host 
           hostPath:
             path: /usr/share/ca-certificates
-          
