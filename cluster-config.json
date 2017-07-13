@@ -1,5 +1,5 @@
 {
-	"kuberntes-version": "v1.6.6",
+	"kuberntes-version": "v1.6.7",
 	"region": "nuke",
 	"update-reboot-strategy": "reboot",
 	"features": {
