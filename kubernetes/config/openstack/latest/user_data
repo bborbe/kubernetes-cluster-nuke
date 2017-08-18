@@ -7,15 +7,6 @@ coreos:
     metadata: "region=nuke"
   update:
     reboot-strategy: reboot
-  etcd2:
-    name: "kubernetes"
-    initial-cluster: "kubernetes=http://172.16.24.10:2380"
-    initial-cluster-token: "cluster-nuke"
-    initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.24.10:2380"
-    advertise-client-urls: "http://172.16.24.10:2379"
-    listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-    listen-peer-urls: "http://0.0.0.0:2380"
   units:
     - name: systemd-sysctl.service
       command: restart
@@ -101,7 +92,19 @@ coreos:
     - name: rpc-statd.service
       command: start
       enable: true
-    - name: etcd2.service
+    - name: etcd-member.service
+      drop-ins:
+      - name: 50-network-config.conf
+        content: |
+          [Service]
+          Environment="ETCD_NAME=kubernetes"
+          Environment="ETCD_INITIAL_CLUSTER=kubernetes=http://172.16.24.10:2380"
+          Environment="ETCD_INITIAL_CLUSTER_TOKEN=cluster-nuke"
+          Environment="ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379,http://0.0.0.0:4001"
+          Environment="ETCD_INITIAL_CLUSTER_STATE=new"
+          Environment="ETCD_ADVERTISE_CLIENT_URLS=http://172.16.24.10:2379"
+          Environment="ETCD_INITIAL_ADVERTISE_PEER_URLS=http://172.16.24.10:2380"
+          Environment="ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380"
       command: start
     - name: rpc-mountd.service
       command: start
@@ -177,7 +180,7 @@ coreos:
           --net=host \
           --privileged=true \
           --pid=host \
-          gcr.io/google_containers/hyperkube-amd64:v1.6.7 \
+          gcr.io/google_containers/hyperkube-amd64:v1.7.4 \
           /hyperkube kubelet \
             --containerized \
             --register-node=true \
@@ -260,13 +263,13 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-apiserver
-          image: gcr.io/google_containers/hyperkube-amd64:v1.6.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.7.4
           command:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
           - --etcd-servers=http://172.16.24.10:2379
-          - --storage-backend=etcd2
+          - --storage-backend=etcd3
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/16
           - --secure-port=443
@@ -388,7 +391,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-proxy
-          image: gcr.io/google_containers/hyperkube-amd64:v1.6.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.7.4
           command:
           - /hyperkube
           - proxy
@@ -416,7 +419,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-scheduler
-          image: gcr.io/google_containers/hyperkube-amd64:v1.6.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.7.4
           command:
           - /hyperkube
           - scheduler
@@ -440,7 +443,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-controller-manager
-          image: gcr.io/google_containers/hyperkube-amd64:v1.6.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.7.4
           command:
           - /hyperkube
           - controller-manager
