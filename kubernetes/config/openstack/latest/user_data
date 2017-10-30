@@ -128,7 +128,7 @@ coreos:
         Description=Delete Kubernetes Manifest Files
         [Service]
         Type=oneshot
-        ExecStart=-/bin/bash -c 'echo "Delete Kubernetes Manifest Files";rm -f /etc/kubernetes/manifests/* /srv/kubernetes/manifests/*'
+        ExecStart=-/bin/bash -c 'echo "Delete Kubernetes Manifest Files";rm -f /etc/kubernetes/manifests/kube-controller-manager.yaml /etc/kubernetes/manifests/kube-scheduler.yaml'
     - name: docker.service
       command: start
       drop-ins:
