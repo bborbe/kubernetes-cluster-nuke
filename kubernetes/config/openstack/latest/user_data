@@ -121,6 +121,14 @@ coreos:
           content: |
             [Service]
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.102.0.0/16", "Backend":{"Type":"vxlan"} }'
+    - name: delete-kubernetes-manifests.service
+      content: |
+        [Unit]
+        Description=Delete Kubernetes Manifest Files
+        [Service]
+        Type=oneshot
+        ExecStart=-/bin/bash -c 'echo "Delete Kubernetes Manifest Files"'
+        ExecStart=-/bin/bash -c 'rm -f /etc/kubernetes/manifests/* /srv/kubernetes/manifests/*'
     - name: docker.service
       command: start
       drop-ins:
@@ -154,14 +162,6 @@ coreos:
         OnCalendar=*-*-* 0/4:00:00
         [Install]
         WantedBy=multi-user.target
-    - name: delete-kubernetes-manifests.service
-      content: |
-        [Unit]
-        Description=Delete Kubernetes Manifest Files
-        Before=docker.service
-        [Service]
-        Type=oneshot
-        ExecStart=-/bin/bash -c 'rm -f /etc/kubernetes/manifests/* /srv/kubernetes/manifests/*'
     - name: kubelet.service
       command: start
       content: |
