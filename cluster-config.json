@@ -1,5 +1,5 @@
 {
-	"kuberntes-version": "v1.8.4",
+	"kuberntes-version": "v1.9.2",
 	"etcd-version": 3,
 	"region": "nuke",
 	"update-reboot-strategy": "reboot",
