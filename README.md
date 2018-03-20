@@ -1,5 +1,15 @@
 # Kubernetes
 
+## Update cluster
+
+```
+ssh ...
+cd /var/lib/libvirt/images/kubernetes
+git pull
+virsh destroy kubernetes
+virsh start kubernetes
+```
+
 ## Copyright and license
 
     Copyright (c) 2016, Benjamin Borbe <bborbe@rocketnews.de>
