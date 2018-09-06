@@ -184,7 +184,7 @@ coreos:
           --net=host \
           --privileged=true \
           --pid=host \
-          gcr.io/google_containers/hyperkube-amd64:v1.10.7 \
+          gcr.io/google_containers/hyperkube-amd64:v1.11.2 \
           /hyperkube kubelet \
             --containerized \
             --register-node=true \
@@ -266,7 +266,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-apiserver
-          image: gcr.io/google_containers/hyperkube-amd64:v1.10.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.11.2
           command:
           - /hyperkube
           - apiserver
@@ -394,7 +394,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-proxy
-          image: gcr.io/google_containers/hyperkube-amd64:v1.10.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.11.2
           command:
           - /hyperkube
           - proxy
@@ -422,7 +422,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-scheduler
-          image: gcr.io/google_containers/hyperkube-amd64:v1.10.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.11.2
           command:
           - /hyperkube
           - scheduler
@@ -446,7 +446,7 @@ write_files:
         hostNetwork: true
         containers:
         - name: kube-controller-manager
-          image: gcr.io/google_containers/hyperkube-amd64:v1.10.7
+          image: gcr.io/google_containers/hyperkube-amd64:v1.11.2
           command:
           - /hyperkube
           - controller-manager
