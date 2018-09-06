@@ -1,9 +1,9 @@
 generate:
-	k8s_cluster_generate_configs \
+	k8s-cluster-generate-configs \
 	-logtostderr \
 	-v=2 \
 	-config cluster-config.json
 install:
-	go install github.com/bborbe/kubernetes_tools/bin/k8s_cluster_generate_configs
+	go install github.com/bborbe/k8s-cluster-generate-configs
 download:
-	go get -u github.com/bborbe/kubernetes_tools/bin/k8s_cluster_generate_configs
+	go get -u github.com/bborbe/k8s-cluster-generate-configs
